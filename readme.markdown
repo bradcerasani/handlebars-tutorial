@@ -594,6 +594,7 @@ define(['jquery', 'handlebars', userTemplate], function($, Handlebars, UserTempl
     this.$(".user-template-container").html(this.userTemplateCompiled(userTemplateDataObject));
   }
 });
+```
 
 #### Pros
 
