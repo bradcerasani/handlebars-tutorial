@@ -1,4 +1,4 @@
-<html>
+<!doctype html>
   <head>
     <script src="jquery-1.11.1.min.js"></script>
     <script src="handlebars-v1.3.0.js"></script>
@@ -12,11 +12,11 @@
     </ul>
 
     <script id="shoe-template" type="x-handlebars-template">
-    {{#each this}}
+    {{#each this }}
       <li class="shoes">
         <a href="/{{ name }}">{{ name }} -- Price: {{ price }}</a>
       </li>
-    {{/each}}
+    {{/each }}
     </script>
 
   </body>
