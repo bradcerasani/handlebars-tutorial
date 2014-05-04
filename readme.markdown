@@ -399,8 +399,8 @@ Custom helpers allow us to use any kind of JavaScript logic. We register custom 
 
 Two types:
 
-1. **function helper**
-2. **block helper**
+1. function helper
+2. block helper
 
 ### Custom Function Helpers
 
@@ -509,15 +509,122 @@ firstName:"Betty",lastName:"White",age:150
 
 ## Four Ways to Add/Load Templates
 
+### 1. `<script>` Tags
 
+Fastest and simpleset, however **least** desirable.
 
+```
+<script id="my-template" type="text/x-handlebars-template">
+{{ content }}
+</script>
+```
 
+#### Pros
 
+- quick to setup and use
 
+#### Cons
 
+- terrible to maintain
+- poor memory management in large-scale applications
+- cannot be precompiled (all compiling done in in-browser)
 
+### 2. Custom Function
 
+You can place all of your templates in HTML files (without the `<script>` tag) and load/compile in one go.
 
+Function by [koorchik](http://stackoverflow.com/users/1067068/koorchik) on StackOverflow.
+
+```js
+function render(tmpl_name, tmpl_data) {
+    if ( !render.tmpl_cache ) {
+        render.tmpl_cache = {};
+    }
+
+    if ( ! render.tmpl_cache[tmpl_name] ) {
+        var tmpl_dir = '/static/templates';
+        var tmpl_url = tmpl_dir + '/' + tmpl_name + '.html';
+
+        var tmpl_string;
+        $.ajax({
+            url: tmpl_url,
+            method: 'GET',
+            async: false,
+            success: function(data) {
+                tmpl_string = data;
+            }
+        });
+
+        render.tmpl_cache[tmpl_name] = _.template(tmpl_string);
+    }
+
+    return render.tmpl_cache[tmpl_name](tmpl_data);
+}
+```
+
+```js
+var rendered_html = render('template', object);
+```
+
+#### Pros
+
+- templates can be kept in separate files
+- lightweight
+- versatile (facilitates use of precompiled and uncompiled templates)
+
+#### Cons
+
+- unknown
+
+### 3. AMD + Require.js
+
+AMD is a specification for loading modules and their dependencies asynchronously. We use a `define()` function to register our modules and dependencies (including templates) and Require.js will load our templates.
+
+```js
+var userTemplate = "text!templates/user_template.html";
+
+define(['jquery', 'handlebars', userTemplate], function($, Handlebars, UserTemplate) {
+  userTemplateDataObject: {
+    firstName: "Betty",
+    lastName: "White"
+    age: 150
+  },
+  userTemplateCompiled: Handlebars.compile(userTemplate),
+  render: function() {
+    this.$(".user-template-container").html(this.userTemplateCompiled(userTemplateDataObject));
+  }
+});
+
+#### Pros
+
+- templates can be kept in separate files
+- good organization with AMD module
+- works well in collaborative environments
+- Require.js can concat files to reduce HTTP requests
+
+#### Cons
+
+- steep learning curve
+
+### 4. Precompile Templates
+
+With `<script>` tag and AMD/Require.js methods, Handlebars has to compile templates on the client side (bad). To reduce latency and speed up page execution, Handlebars has a Node.js module to precompile your templates.
+
+See [Handlebars Docs](http://handlebarsjs.com/precompilation.html) for more.
+
+#### Pros
+
+- precompiled template files are JS, can be minified and concatenated
+- better performance
+
+#### Cons
+
+- requires Node.js installed (is that really a con?)
+- making changes to files is a two-step process (change HTML, run compile script)
+
+<hr>
+
+[Try Handlebars](http://tryhandlebarsjs.com/)
 
 
 
