@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <script src="jquery-1.11.1.min.js"></script>
+    <script src="handlebars-v1.3.0.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+
+    <h2>The List of Shoes</h2>
+    <ul class="shoesNav">
+
+    </ul>
+
+    <script id="shoe-template" type="x-handlebars-template">
+    {{#each this}}
+      <li class="shoes">
+        <a href="/{{ name }}">{{ name }} -- Price: {{ price }}</a>
+      </li>
+    {{/each}}
+    </script>
+
+  </body>
+</html>
