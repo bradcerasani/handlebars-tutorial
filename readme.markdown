@@ -30,7 +30,7 @@ Handlebars is an extension of Mustache; it supercedes Mustache.js.
 - Block: `{{#each}} Stuff {{/each}}`
 - w/HTML: `<h1>{{ pageTitle }}</h1>`
 
-**Wrap Handlebars templates in script tag:**
+Wrap Handlebars templates in script tag:
 
 ```
 <script id="header" type="text/x-handlebars-template">
@@ -63,9 +63,9 @@ var data = {
 
 ```
 <script id="people-list" type="text/x-handlebars-template">
-{{#each people}}
-  <li>{{ firstName }} {{ lastName }}</li>
-{{/each}}
+  {{#each people}}
+    <li>{{ firstName }} {{ lastName }}</li>
+  {{/each}}
 </script>
 ```
 
@@ -73,9 +73,9 @@ Since we are passing the people object as an *array* of objects, we can use a bl
 
 ```
 <script id="people-list" type="text/x-handlebars-template">
-{{#people}}
-  <li>{{ firstName }} {{ lastName }}</li>
-{{/people}}
+  {{#people}}
+    <li>{{ firstName }} {{ lastName }}</li>
+  {{/people}}
 </script>
 ```
 
@@ -83,8 +83,163 @@ Since we are passing the people object as an *array* of objects, we can use a bl
 
 Two-step execution:
 
-1. Compile template with `Handlebars.compile(template)`
+1. Compile template with `Handlebars.compile(template)` (returns JS function)
 2. Invoke data object passed to it (returns HTML string with interpolated object values inserted into HTML)
+
+Sumamry: `Handlebars.compile(template)` returns a JS function. We then use this compiled function to execute the data object and return a string with HTML and interpolated object values. We can then insert this into our HTML.
+
+#### Example:
+
+```
+<script id="person" type="text/x-handlebars-template">
+  <h1>{{ firstName }} {{ lastName }}</h1>
+</script>
+```
+
+```js
+var person = {
+  firstName: "Betty",
+  lastName: "White"
+}
+
+var templateScript = $('#person').html();
+var template = Handlebars.compile(templateScript);
+
+$('header').append(template(person));
+```
+
+**Result:**
+
+```html
+<header>
+  <h1>Betty White</h1>
+</header>
+```
+
+### Handlebars Syntax
+
+#### Expressions
+
+```js
+{{ content }}
+```
+
+#### Comments
+
+```js
+{{! this is a Handlebars comment }}
+
+<!-- regular HTML comments will be in the output -->
+```
+
+#### Blocks
+
+Standard block syntax:
+
+```js
+{{#each}}
+  Something
+{{/each}}
+```
+
+if block:
+
+```js
+{{#if somethingIsTrue}}
+  Yep, that's true.
+{{/if}}
+```
+
+#### Paths (with dot notation)
+
+A path is a property lookup. If we have a _name_ property that contains an object, we can use nested paths (dot notation) to lookup any property.
+
+```js
+var obj = {
+  name: {
+    firstName: "Betty",
+    lastName: "White"
+  }
+}
+```
+
+```
+{{ name.firstName }}
+```
+
+#### Parent Path
+
+Handlebars has a parent path `../` to lookup properties on parents of the current context.
+
+```js
+// This is ugly as sin.
+
+var people = {
+  groupName: "celebrities",
+  users: [
+    {
+      name: {
+        firstName: "Michael",
+        lastName: "Jordan"
+      }
+    },
+    {
+      name: {
+        firstName: "Betty",
+        lastName: "White"
+      }
+    }
+  ]
+};
+```
+
+We can use the parent path `../` to get the groupName property:
+
+```
+<script id="people-list" type="x-handlebars-template">
+  {{#users}}
+    <li>{{ name.firstName }} {{ name.lastname }} is in the {{../groupName }} group.</li>
+  {{/users}}
+</script>
+```
+
+#### Context
+
+Handlebars refers to the object you passed to its function as the _context_.
+
+#### Triple Stash {{{ ... }}} for Non-Escaped HTML
+
+`{{ ... }}` will output escaped HTML
+`{{{ ... }}}` will output un-escaped HTML
+
+#### Partials (sub-templates)
+
+To render a section of a template within a larger template, use partials.
+
+```
+{{> description}}
+```
+
+Registering a partial:
+
+```js
+Handlebars.registerPartial("description", $("#person-description").html());
+```
+
+### Helpers (Conditionals and Loops)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

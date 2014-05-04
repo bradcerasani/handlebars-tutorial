@@ -1,8 +1,6 @@
 <!doctype html>
   <head>
-    <script src="jquery-1.11.1.min.js"></script>
-    <script src="handlebars-v1.3.0.js"></script>
-    <script src="main.js"></script>
+
   </head>
   <body>
 
@@ -11,13 +9,35 @@
 
     </ul>
 
+    <h2>The List of Celebrities</h2>
+    <ul class="people">
+
+    </ul>
+
     <script id="shoe-template" type="x-handlebars-template">
-    {{#each this }}
-      <li class="shoes">
-        <a href="/{{ name }}">{{ name }} -- Price: {{ price }}</a>
-      </li>
-    {{/each }}
+      {{#each allShoes}}
+        <li class="shoes">
+          <span class="shoe-name"> {{ name }} - </span> price: {{ price }}
+          {{> description}}
+        </li>
+      {{/each}}
     </script>
 
+    <script id="shoe-description" type="x-handlebars-template">
+      <ul>
+        <li>{{ color }}</li>
+        <li>{{ size }}</li>
+      </ul>
+    </script>
+
+    <script id="people-list" type="x-handlebars-template">
+      {{#users}}
+        <li>{{ name.firstName }} {{ name.lastname }} is in the {{../groupName }} group.</li>
+      {{/users}}
+    </script>
+
+    <script src="jquery-1.11.1.min.js"></script>
+    <script src="handlebars-v1.3.0.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
