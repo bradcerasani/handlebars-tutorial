@@ -2,21 +2,19 @@
 
 These are my notes from following [Learn Everything about Handlebars.js Javascript Templating](http://javascriptissexy.com/handlebars-js-tutorial-learn-everything-about-handlebars-js-javascript-templating/).
 
-## Why use templating?
+### Why use templating?
 
 - decouples JS and HTML for easier and more reliable file management
 - most JS front-end frameworks use a templaing engine, many use Handlebars.js
 
-## When to use templating
+### When to use templating
 
 - anytime you use JS front-end framework
 - app views updated frequently (via REST API or client input)
 - multiple tech stacks process the same data
 - much interactivity. very responsive
 
-Keep HTML out of JS.
-
-## Why Handlebars.js?
+### Why Handlebars.js?
 
 Handlebars is an extension of Mustache; it supercedes Mustache.js.
 
@@ -24,7 +22,7 @@ Handlebars is an extension of Mustache; it supercedes Mustache.js.
 - logic-less templating
 - cutting-edge frameworks like Meteor.js and Derby.js use Handlebars or Handlebars derivatives.
 
-## The 3 Components of Handlebars Templating
+### The 3 Components of Handlebars Templating
 
 #### 1. Handlebars.js Expressions
 
@@ -46,7 +44,7 @@ Pass data as a JS object to the Handlebars function. Data object (context) can b
 
 If the data object has an *array* of objects, you can use Handlebars `{{#each}}` helper to iterate the array, and the current context is set to each item in the array.
 
-```javascript
+```js
 var data = {
   people: [
     {
