@@ -1,6 +1,6 @@
 # Handlebars.js Study
 
-These are my notes from following [Learn Everything about Handlebars.js Javascript Templating](http://javascriptissexy.com/handlebars-js-tutorial-learn-everything-about-handlebars-js-javascript-templating/).
+These are my notes from [Learn Everything about Handlebars.js Javascript Templating](http://javascriptissexy.com/handlebars-js-tutorial-learn-everything-about-handlebars-js-javascript-templating/).
 
 ### Why use templating?
 
@@ -22,7 +22,7 @@ Handlebars is an extension of Mustache; it supercedes Mustache.js
 - logic-less templating
 - cutting-edge frameworks like Meteor.js and Derby.js use Handlebars or Handlebars derivatives.
 
-### The 3 Components of Handlebars Templating
+## The 3 Components of Handlebars Templating
 
 #### 1. Handlebars.js Expressions
 
@@ -49,7 +49,7 @@ var data = {
   people: [
     {
       firstName: "Michael",
-      lastName: "Jordan",
+      lastName: "Jackson",
       age: 20
     },
     {
@@ -116,7 +116,7 @@ $('header').append(template(person));
 </header>
 ```
 
-### Handlebars Syntax
+## Handlebars Syntax
 
 #### Expressions
 
@@ -128,7 +128,6 @@ $('header').append(template(person));
 
 ```
 {{! this is a Handlebars comment }}
-
 <!-- regular HTML comments will be in the output -->
 ```
 
@@ -179,7 +178,7 @@ var people = {
     {
       name: {
         firstName: "Michael",
-        lastName: "Jordan"
+        lastName: "Jackson"
       }
     },
     {
@@ -259,7 +258,10 @@ var fruits = {
 If the data object passed to the `each` helper is _not_ an array, the entire object is the current context and we use the `this` keyword.
 
 ```js
-var people = {firstName: "Peter", lastName: "Paul"};
+var people = {
+  firstName: "Betty",
+  lastName: "White"
+};
 ```
 
 As opposed to this:
@@ -279,7 +281,7 @@ We use the `this` keyword:
 
 ```
 {{#each this}}
-  <li>{{ firstName }} {{ lastName }}</li>
+<li>{{ firstName }} {{ lastName }}</li>
 {{/each}}
 ```
 
@@ -305,7 +307,7 @@ var fruits = {
 
 ```
 {{#each allFruits}}
-  <li>{{ fruitName }} {{ naitiveTo.0.country }}</li>
+<li>{{ fruitName }} {{ naitiveTo.0.country }}</li>
 {{/each}}
 ```
 
@@ -373,7 +375,7 @@ We can use `{{with}}` block to target the groupName property where we need acces
 
 ```
 <script id="people-list" type="text/x-handlebars-template">
-{{ groupName }} Group
+<h1>{{ groupName }} Group</h1>
 <ul>
 {{#with celebrity}}
   <li>{{ firstName }} {{ lastName }}</li>
@@ -385,13 +387,13 @@ We can use `{{with}}` block to target the groupName property where we need acces
 ###### Result:
 
 ```html
-Celebrities Group
+<h1>Celebrities Group</h1>
 <ul>
   <li>Betty White</li>
 </ul>
 ```
 
-### Custom Helpers
+## Custom Helpers
 
 Custom helpers allow us to use any kind of JavaScript logic. We register custom helpers before the rest of the Handlebars.js code.
 
@@ -504,6 +506,10 @@ Handlebars.registerHelper("hashExample", function(object, options) {
 ```html
 firstName:"Betty",lastName:"White",age:150
 ```
+
+## Four Ways to Add/Load Templates
+
+
 
 
 
