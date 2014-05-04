@@ -171,7 +171,6 @@ var obj = {
 Handlebars has a parent path `../` to lookup properties on parents of the current context.
 
 ```js
-// This is ugly as sin.
 var people = {
   groupName: "celebrities",
   users: [
@@ -288,6 +287,7 @@ We use the `this` keyword:
 We can also use nested properties with the `each` helper:
 
 ```js
+// gross example
 var fruits = {
   allFruits: [
     {
@@ -509,7 +509,7 @@ firstName:"Betty",lastName:"White",age:150
 
 ## Four Ways to Add/Load Templates
 
-### 1. `<script>` Tags
+### 1. Script Tags
 
 Fastest and simpleset, however **least** desirable.
 
@@ -623,7 +623,7 @@ See [Handlebars Docs](http://handlebarsjs.com/precompilation.html) for more.
 - requires Node.js installed (is that really a con?)
 - making changes to files is a two-step process (change HTML, run compile script)
 
-<hr>
+
 
 [Try Handlebars](http://tryhandlebarsjs.com/)
 
