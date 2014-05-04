@@ -32,7 +32,7 @@ Handlebars is an extension of Mustache; it supercedes Mustache.js.
 
 **Wrap Handlebars templates in script tag:**
 
-```html
+```
 <script id="header" type="text/x-handlebars-template">
   <li>{{ firstName }}</li>
 </script>
@@ -61,7 +61,7 @@ var data = {
 };
 ```
 
-```html
+```
 <script id="people-list" type="text/x-handlebars-template">
 {{#each people}}
   <li>{{ firstName }} {{ lastName }}</li>
@@ -71,7 +71,7 @@ var data = {
 
 Since we are passing the people object as an *array* of objects, we can use a block helper and reference the people directly:
 
-```html
+```
 <script id="people-list" type="text/x-handlebars-template">
 {{#people}}
   <li>{{ firstName }} {{ lastName }}</li>
