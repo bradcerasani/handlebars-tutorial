@@ -24,7 +24,7 @@ Handlebars is an extension of Mustache; it supercedes Mustache.js
 
 ## The 3 Components of Handlebars Templating
 
-#### 1. Handlebars.js Expressions
+### 1. Handlebars.js Expressions
 
 - Basic: `{{ content }}`
 - Block: `{{#each}} Stuff {{/each}}`
@@ -38,7 +38,7 @@ Wrap Handlebars templates in script tag:
 </script>
 ```
 
-#### 2. Data/Context
+### 2. Data/Context
 
 Pass data as a JS object to the Handlebars function. Data object (context) can be comprised of arrays, objects, strings, numbers, or any combination of these.
 
@@ -79,7 +79,7 @@ Since we are passing the people object as an *array* of objects, we can use a bl
 </script>
 ```
 
-#### 3. Handlebars Compile Function
+### 3. Handlebars Compile Function
 
 Two-step execution:
 
@@ -88,7 +88,7 @@ Two-step execution:
 
 Sumamry: `Handlebars.compile(template)` returns a JS function. We then use this compiled function to execute the data object and return a string with HTML and interpolated object values. We can then insert this into our HTML.
 
-#### Example:
+### Example:
 
 ```
 <script id="person" type="text/x-handlebars-template">
@@ -118,20 +118,20 @@ $('header').append(template(person));
 
 ## Handlebars Syntax
 
-#### Expressions
+### Expressions
 
 ```
 {{ content }}
 ```
 
-#### Comments
+### Comments
 
 ```
 {{! this is a Handlebars comment }}
 <!-- regular HTML comments will be in the output -->
 ```
 
-#### Blocks
+### Blocks
 
 Standard block syntax:
 
@@ -149,7 +149,7 @@ if block:
 {{/if}}
 ```
 
-#### Paths (with dot notation)
+### Paths (with dot notation)
 
 A path is a property lookup. If we have a _name_ property that contains an object, we can use nested paths (dot notation) to lookup any property.
 
@@ -166,7 +166,7 @@ var obj = {
 {{ name.firstName }}
 ```
 
-#### Parent Path
+### Parent Path
 
 Handlebars has a parent path `../` to lookup properties on parents of the current context.
 
@@ -201,17 +201,17 @@ We can use the parent path `../` to get the groupName property:
 </script>
 ```
 
-#### Context
+### Context
 
 Handlebars refers to the object you passed to its function as the _context_.
 
-#### Triple Stash {{{ ... }}} for Non-Escaped HTML
+### Triple Stash {{{ ... }}} for Non-Escaped HTML
 
 `{{ ... }}` will output escaped HTML
 
 `{{{ ... }}}` will output un-escaped HTML
 
-#### Partials (sub-templates)
+### Partials (sub-templates)
 
 To render a section of a template within a larger template, use partials.
 
@@ -225,11 +225,11 @@ Registering a partial:
 Handlebars.registerPartial("description", $("#person-description").html());
 ```
 
-### Built-In Helpers (Conditionals and Loops)
+## Built-In Helpers (Conditionals and Loops)
 
 As we learned earlier, handlebars is a logic-less templating engine. We use helpers for executing logic.
 
-#### Each Helper
+### Each Helper
 
 The `{{#each}}` helper allows you to iterate over an array or object.
 
@@ -318,7 +318,7 @@ var fruits = {
 <li>Mango</li>
 ```
 
-#### If Helper
+### If Helper
 
 The `{{if}}` helper works like a regular `if` statement, except it __does not accept any conditional logic__. It checks for truthy values such as true and non-empty/non-null values.
 
@@ -333,7 +333,7 @@ Check `value.length` to catch cases where an array might be empty:
 </div>
 ```
 
-#### Else Helper
+### Else Helper
 
 ```
 <div class="user-data">
@@ -345,7 +345,7 @@ Check `value.length` to catch cases where an array might be empty:
 </div>
 ```
 
-#### Unless Helper
+### Unless Helper
 
 The `{{unless}}` helper is best used if you _only_ want to check for **falsy** values.
 
@@ -357,7 +357,7 @@ The `{{unless}}` helper is best used if you _only_ want to check for **falsy** v
 </div>
 ```
 
-#### With Helper
+### With Helper
 
 The `{{#with}}` helper allows us to target a specific property of the object. You probably won't use it much.
 
@@ -402,7 +402,7 @@ Two types:
 1. **function helper**
 2. **block helper**
 
-#### Custom Function Helpers
+### Custom Function Helpers
 
 Custom function helper that executes conditional logic:
 
@@ -433,11 +433,11 @@ Handlebars.registerHelper("grader", function(score) {
 </script>
 ```
 
-#### Custom Block Helpers
+### Custom Block Helpers
 
 When we register a custom block helper, Handlebars automatically adds an `options` object as the last parameter in the callback function. The `options` object has a `fn` method, a `hash` object, and an `inverse` method.
 
-##### options.fn
+#### options.fn
 
 `options.fn` takes an object (your data) as a parameter that it uses as the context inside the custom helper block template.
 
@@ -483,11 +483,11 @@ Handlebars.registerHelper("studentScore", function(students, options) {
 <li>Michael Jackson, your total score is <b>168</b></li>
 ```
 
-##### options.inverse
+#### options.inverse
 
 `options.inverse` is used as the `else` section of any block statement. You use `options.fn` when the expression in the callback is truthy, and `options.inverse` when it is falsey.
 
-##### options.hash
+#### options.hash
 
 Handlebars expressions take not only strings and variables as arguments, but key-value pairs as well. Use spaces to separate key-value pairs, **not** commas.
 
