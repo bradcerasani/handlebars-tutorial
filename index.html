@@ -6,34 +6,51 @@
 
     <h2>The List of Shoes</h2>
     <ul class="shoesNav">
-
     </ul>
 
     <h2>The List of Celebrities</h2>
     <ul class="people">
+    </ul>
+
+    <h2>Grader</h2>
+    <ul class="grader-results">
+    </ul>
+
+    <h2>Student Scores</h2>
+    <ul class="student-score-results">
 
     </ul>
 
-    <script id="shoe-template" type="x-handlebars-template">
-      {{#each allShoes}}
-        <li class="shoes">
-          <span class="shoe-name"> {{ name }} - </span> price: {{ price }}
-          {{> description}}
-        </li>
-      {{/each}}
+    <script id="shoe-template" type="text/x-handlebars-template">
+    {{#each allShoes}}
+      <li class="shoes">
+        <span class="shoe-name"> {{ name }} - </span> price: {{ price }}
+        {{> description}}
+      </li>
+    {{/each}}
     </script>
 
-    <script id="shoe-description" type="x-handlebars-template">
-      <ul>
-        <li>{{ color }}</li>
-        <li>{{ size }}</li>
-      </ul>
+    <script id="shoe-description" type="text/x-handlebars-template">
+    <ul>
+      <li>{{ color }}</li>
+      <li>{{ size }}</li>
+    </ul>
     </script>
 
-    <script id="people-list" type="x-handlebars-template">
-      {{#users}}
-        <li>{{ name.firstName }} {{ name.lastname }} is in the {{../groupName }} group.</li>
-      {{/users}}
+    <script id="people-list" type="text/x-handlebars-template">
+    {{#users}}
+      <li>{{ name.firstName }} {{ name.lastname }} is in the {{ ../groupName }} group.</li>
+    {{/users}}
+    </script>
+
+    <script id="student" type="text/x-handlebars-template">
+    <li>{{ name }} got a {{ grader score }}.</li>
+    </script>
+
+    <script id="student-scores" type="text/x-handlebars-template">
+    {{#studentScore this}}
+      <li>{{ firstName }} {{ lastName }}, your total score is <b>{{ score }}</b></li>
+    {{/studentScore}}
     </script>
 
     <script src="jquery-1.11.1.min.js"></script>

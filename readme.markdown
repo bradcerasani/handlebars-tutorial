@@ -16,7 +16,7 @@ These are my notes from following [Learn Everything about Handlebars.js Javascri
 
 ### Why Handlebars.js?
 
-Handlebars is an extension of Mustache; it supercedes Mustache.js.
+Handlebars is an extension of Mustache; it supercedes Mustache.js
 
 - advanced, feature-rich, active community
 - logic-less templating
@@ -34,7 +34,7 @@ Wrap Handlebars templates in script tag:
 
 ```
 <script id="header" type="text/x-handlebars-template">
-  <li>{{ firstName }}</li>
+  <h1>{{ firstName }}</h1>
 </script>
 ```
 
@@ -63,9 +63,9 @@ var data = {
 
 ```
 <script id="people-list" type="text/x-handlebars-template">
-  {{#each people}}
-    <li>{{ firstName }} {{ lastName }}</li>
-  {{/each}}
+{{#each people}}
+  <li>{{ firstName }} {{ lastName }}</li>
+{{/each}}
 </script>
 ```
 
@@ -73,9 +73,9 @@ Since we are passing the people object as an *array* of objects, we can use a bl
 
 ```
 <script id="people-list" type="text/x-handlebars-template">
-  {{#people}}
-    <li>{{ firstName }} {{ lastName }}</li>
-  {{/people}}
+{{#people}}
+  <li>{{ firstName }} {{ lastName }}</li>
+{{/people}}
 </script>
 ```
 
@@ -108,7 +108,7 @@ var template = Handlebars.compile(templateScript);
 $('header').append(template(person));
 ```
 
-**Result:**
+###### Result:
 
 ```html
 <header>
@@ -120,13 +120,13 @@ $('header').append(template(person));
 
 #### Expressions
 
-```js
+```
 {{ content }}
 ```
 
 #### Comments
 
-```js
+```
 {{! this is a Handlebars comment }}
 
 <!-- regular HTML comments will be in the output -->
@@ -136,7 +136,7 @@ $('header').append(template(person));
 
 Standard block syntax:
 
-```js
+```
 {{#each}}
   Something
 {{/each}}
@@ -144,7 +144,7 @@ Standard block syntax:
 
 if block:
 
-```js
+```
 {{#if somethingIsTrue}}
   Yep, that's true.
 {{/if}}
@@ -173,7 +173,6 @@ Handlebars has a parent path `../` to lookup properties on parents of the curren
 
 ```js
 // This is ugly as sin.
-
 var people = {
   groupName: "celebrities",
   users: [
@@ -197,9 +196,9 @@ We can use the parent path `../` to get the groupName property:
 
 ```
 <script id="people-list" type="x-handlebars-template">
-  {{#users}}
-    <li>{{ name.firstName }} {{ name.lastname }} is in the {{../groupName }} group.</li>
-  {{/users}}
+{{#users}}
+  <div>{{ name.firstName }} {{ name.lastname }} is in the {{../groupName }} group.</div>
+{{/users}}
 </script>
 ```
 
@@ -210,6 +209,7 @@ Handlebars refers to the object you passed to its function as the _context_.
 #### Triple Stash {{{ ... }}} for Non-Escaped HTML
 
 `{{ ... }}` will output escaped HTML
+
 `{{{ ... }}}` will output un-escaped HTML
 
 #### Partials (sub-templates)
@@ -226,7 +226,298 @@ Registering a partial:
 Handlebars.registerPartial("description", $("#person-description").html());
 ```
 
-### Helpers (Conditionals and Loops)
+### Built-In Helpers (Conditionals and Loops)
+
+As we learned earlier, handlebars is a logic-less templating engine. We use helpers for executing logic.
+
+#### Each Helper
+
+The `{{#each}}` helper allows you to iterate over an array or object.
+
+```js
+var fruits = {
+  allFruits: ["Tangerine", "Mango", "Banana"]
+}
+```
+
+```
+<script id="fruits-template" type="x-handlebars-template">
+{{#each allFruits}}
+  <li>{{ this }}</li>
+{{/each}}
+</script>
+```
+
+###### Result:
+
+```html
+<li>Tangeringe</li>
+<li>Mango</li>
+<li>Banana</li>
+```
+
+If the data object passed to the `each` helper is _not_ an array, the entire object is the current context and we use the `this` keyword.
+
+```js
+var people = {firstName: "Peter", lastName: "Paul"};
+```
+
+As opposed to this:
+
+```js
+var people = {
+  customers: {
+    {
+      firstName: "Betty",
+      lastName: "White"
+    }
+  }
+}
+```
+
+We use the `this` keyword:
+
+```
+{{#each this}}
+  <li>{{ firstName }} {{ lastName }}</li>
+{{/each}}
+```
+
+We can also use nested properties with the `each` helper:
+
+```js
+var fruits = {
+  allFruits: [
+    {
+      fruitName: "Tangerine",
+      naitiveTo: [
+        {
+          country: "Venezuela"
+        }
+      ]
+    },
+    {
+      fruitName: "Mango"
+    }
+  ]
+};
+```
+
+```
+{{#each allFruits}}
+  <li>{{ fruitName }} {{ naitiveTo.0.country }}</li>
+{{/each}}
+```
+
+###### Result:
+
+```html
+<li>Tangerine Venezuela</li>
+<li>Mango</li>
+```
+
+#### If Helper
+
+The `{{if}}` helper works like a regular `if` statement, except it __does not accept any conditional logic__. It checks for truthy values such as true and non-empty/non-null values.
+
+
+Check `value.length` to catch cases where an array might be empty:
+
+```
+<div class="user-data">
+{{if userActive.length}}
+  Welcome, {{ firstname }}
+{{/if}}
+</div>
+```
+
+#### Else Helper
+
+```
+<div class="user-data">
+{{if userActive.length}}
+  Welcome, {{ firstname }}
+{{else}}
+  Please log in.
+{{/if}}
+</div>
+```
+
+#### Unless Helper
+
+The `{{unless}}` helper is best used if you _only_ want to check for **falsy** values.
+
+```
+<div class="user-data">
+{{#unless userLoggedIn}}
+  Please log in.
+{{/unless}}
+</div>
+```
+
+#### With Helper
+
+The `{{#with}}` helper allows us to target a specific property of the object. You probably won't use it much.
+
+```js
+var people = {
+  groupName: "celebrities",
+  celebrity: {
+    firstName: "Betty",
+    lastName: "White"
+  }
+}
+```
+
+We can use `{{with}}` block to target the groupName property where we need access to its values:
+
+```
+<script id="people-list" type="text/x-handlebars-template">
+{{ groupName }} Group
+<ul>
+{{#with celebrity}}
+  <li>{{ firstName }} {{ lastName }}</li>
+{{/with}}
+</ul>
+</script>
+```
+
+###### Result:
+
+```html
+Celebrities Group
+<ul>
+  <li>Betty White</li>
+</ul>
+```
+
+### Custom Helpers
+
+Custom helpers allow us to use any kind of JavaScript logic. We register custom helpers before the rest of the Handlebars.js code.
+
+Two types:
+
+1. **function helper**
+2. **block helper**
+
+#### Custom Function Helpers
+
+Custom function helper that executes conditional logic:
+
+```js
+var user = {
+  name: "Betty",
+  score: 85
+}
+
+Handlebars.registerHelper("grader", function(score) {
+  console.log("Grade: " + score);
+
+  if(score >= 90) {
+    return "A";
+  } else if (score >= 80 && score < 90) {
+    return "B";
+  } else if (score >= 70 && score <80) {
+    return "C";
+  } else {
+    return "D";
+  }
+});
+```
+
+```
+<script id="student" type="text/x-handlebars-template">
+<li>{{ name }} got a {{ grader score }}.</li>
+</script>
+```
+
+#### Custom Block Helpers
+
+When we register a custom block helper, Handlebars automatically adds an `options` object as the last parameter in the callback function. The `options` object has a `fn` method, a `hash` object, and an `inverse` method.
+
+##### options.fn
+
+`options.fn` takes an object (your data) as a parameter that it uses as the context inside the custom helper block template.
+
+```js
+var students = [
+  {
+    firstName: "Betty",
+    lastName: "White",
+    score: [22, 34, 45, 67]
+  },
+  {
+    firstName: "Michael",
+    lastName: "Jackson",
+    score: [10, 34, 67, 90]
+  }
+];
+
+Handlebars.registerHelper("studentScore", function(students, options) {
+  var templateWithData = "";
+
+  for (var i = students.length - 1; i >= 0; i--) {
+    students[i].score = students[i].score.reduce(function(prev, cur, index, array) {
+      return prev + cur;
+    });
+    templateWithData += options.fn(students[i]);
+  }
+  return templateWithData;
+});
+```
+
+```
+<script id="student-scores" type="text/x-handlebars-template">
+{{#studentScore this}}
+  <li>{{ firstName }} {{ lastName }}, your total score is <b>{{ score }}</b></li>
+{{/studentScore}}
+</script>
+```
+
+###### Result:
+
+```html
+<li>Betty White, your total score is <b>201</b></li>
+<li>Michael Jackson, your total score is <b>168</b></li>
+```
+
+##### options.inverse
+
+`options.inverse` is used as the `else` section of any block statement. You use `options.fn` when the expression in the callback is truthy, and `options.inverse` when it is falsey.
+
+##### options.hash
+
+Handlebars expressions take not only strings and variables as arguments, but key-value pairs as well. Use spaces to separate key-value pairs, **not** commas.
+
+```
+{{#hashExample firstName="Betty" lastName="White" age="150"}}
+```
+
+```js
+Handlebars.registerHelper("hashExample", function(object, options) {
+  console.log(JSON.stringify(options.hash));
+});
+```
+
+###### Result:
+
+```html
+firstName:"Betty",lastName:"White",age:150
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
