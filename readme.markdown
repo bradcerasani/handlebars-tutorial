@@ -1,11 +1,11 @@
 # Handlebars.js Study
 
-These are my notes from [Learn Everything about Handlebars.js Javascript Templating](http://javascriptissexy.com/handlebars-js-tutorial-learn-everything-about-handlebars-js-javascript-templating/).
+These are my notes from [Learn Everything about Handlebars.js JavaScript Templating](http://javascriptissexy.com/handlebars-js-tutorial-learn-everything-about-handlebars-js-javascript-templating/).
 
 ### Why use templating?
 
 - decouples JS and HTML for easier and more reliable file management
-- most JS front-end frameworks use a templaing engine, many use Handlebars.js
+- most JS front-end frameworks use a templating engine, many use Handlebars.js
 
 ### When to use templating
 
@@ -16,7 +16,7 @@ These are my notes from [Learn Everything about Handlebars.js Javascript Templat
 
 ### Why Handlebars.js?
 
-Handlebars is an extension of Mustache; it supercedes Mustache.js
+Handlebars is an extension of Mustache; it supersedes Mustache.js
 
 - advanced, feature-rich, active community
 - logic-less templating
@@ -86,7 +86,7 @@ Two-step execution:
 1. Compile template with `Handlebars.compile(template)` (returns JS function)
 2. Invoke data object passed to it (returns HTML string with interpolated object values inserted into HTML)
 
-Sumamry: `Handlebars.compile(template)` returns a JS function. We then use this compiled function to execute the data object and return a string with HTML and interpolated object values. We can then insert this into our HTML.
+Summary: `Handlebars.compile(template)` returns a JS function. We then use this compiled function to execute the data object and return a string with HTML and interpolated object values. We can then insert this into our HTML.
 
 ### Example:
 
@@ -249,7 +249,7 @@ var fruits = {
 ###### Result:
 
 ```html
-<li>Tangeringe</li>
+<li>Tangerine</li>
 <li>Mango</li>
 <li>Banana</li>
 ```
@@ -328,7 +328,7 @@ Check `value.length` to catch cases where an array might be empty:
 ```
 <div class="user-data">
 {{if userActive.length}}
-  Welcome, {{ firstname }}
+  Welcome, {{ firstName }}
 {{/if}}
 </div>
 ```
@@ -338,7 +338,7 @@ Check `value.length` to catch cases where an array might be empty:
 ```
 <div class="user-data">
 {{if userActive.length}}
-  Welcome, {{ firstname }}
+  Welcome, {{ firstName }}
 {{else}}
   Please log in.
 {{/if}}
@@ -511,7 +511,7 @@ firstName:"Betty",lastName:"White",age:150
 
 ### 1. Script Tags
 
-Fastest and simpleset, however **least** desirable.
+Fastest and simplest, however **least** desirable.
 
 ```
 <script id="my-template" type="text/x-handlebars-template">
