@@ -53,13 +53,13 @@ $(function() {
   var templateScriptTwo = $('#people-list').html();
   var templateTwo = Handlebars.compile(templateScriptTwo);
 
-  $('.people').append(templateTwo(people))
+  $('.people').append(templateTwo(people));
 
   // Custom Function Helper - Grader
   var user = {
     name: "Betty",
     score: 85
-  }
+  };
 
   Handlebars.registerHelper("grader", function(score) {
     console.log("Grade: " + score);
@@ -78,7 +78,7 @@ $(function() {
   var templateScriptThree = $('#student').html();
   var templateThree = Handlebars.compile(templateScriptThree);
 
-  $('.grader-results').append(templateThree(user))
+  $('.grader-results').append(templateThree(user));
 
   // Custom Block Helper
   var students = [
@@ -98,9 +98,7 @@ $(function() {
     var templateWithData = "";
 
     for (var i = students.length - 1; i >= 0; i--) {
-      students[i].score = students[i].score.reduce(function(prev, cur, index, array) {
-        return prev + cur;
-      });
+      students[i].score = students[i].score.reduce(function(prev, cur, index, array) {return prev + cur;});
       templateWithData += options.fn(students[i]);
     }
     return templateWithData;
@@ -109,6 +107,6 @@ $(function() {
   var templateScriptFour = $('#student-scores').html();
   var templateFour = Handlebars.compile(templateScriptFour);
 
-  $('.student-score-results').append(templateFour(students))
+  $('.student-score-results').append(templateFour(students));
 
 });
