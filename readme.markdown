@@ -320,14 +320,14 @@ var fruits = {
 
 ### If Helper
 
-The `{{if}}` helper works like a regular `if` statement, except it __does not accept any conditional logic__. It checks for truthy values such as true and non-empty/non-null values.
+The `{{#if}}` helper works like a regular `if` statement, except it __does not accept any conditional logic__. It checks for truthy values such as true and non-empty/non-null values.
 
 
 Check `value.length` to catch cases where an array might be empty:
 
 ```
 <div class="user-data">
-{{if userActive.length}}
+{{#if userActive.length}}
   Welcome, {{ firstName }}
 {{/if}}
 </div>
@@ -337,7 +337,7 @@ Check `value.length` to catch cases where an array might be empty:
 
 ```
 <div class="user-data">
-{{if userActive.length}}
+{{#if userActive.length}}
   Welcome, {{ firstName }}
 {{else}}
   Please log in.
@@ -347,7 +347,7 @@ Check `value.length` to catch cases where an array might be empty:
 
 ### Unless Helper
 
-The `{{unless}}` helper is best used if you _only_ want to check for **falsy** values.
+The `{{#unless}}` helper is best used if you _only_ want to check for **falsy** values.
 
 ```
 <div class="user-data">
@@ -371,7 +371,7 @@ var people = {
 }
 ```
 
-We can use `{{with}}` block to target the groupName property where we need access to its values:
+We can use `{{#with}}` block to target the groupName property where we need access to its values:
 
 ```
 <script id="people-list" type="text/x-handlebars-template">
@@ -626,26 +626,3 @@ See [Handlebars Docs](http://handlebarsjs.com/precompilation.html) for more.
 
 
 [Try Handlebars](http://tryhandlebarsjs.com/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
